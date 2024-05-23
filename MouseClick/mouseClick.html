@@ -4,112 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mouse Click</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <style>
-        table {
-            border-collapse: collapse;
-        }
-        td {
-            width: 60px;
-            height: 60px;
-            border : 1px solid skyblue;
-            text-align: center;
-            font-weight: bold;
-            color : red;
-        }
-    </style>
-    <script>
-        let tds; // 테이블의 모든 셀의 노드 collection
-        let curLoc; // 텍스트가 출력되는 셀 번호 ( 0 ~ size*size - 1)
-        let size; // 테이블의 가로, 세로 셀 수
-
-        // random cell 텍스트 출력하고 click event handler 등록
-        function randomLocText() {
-            // 현재 셀을 초기화
-            tds[curLoc].innerHTML = "";
-            tds[curLoc].onclick = null;
-
-            // 새로운 셀을 random으로 선택
-            curLoc = Math.floor(Math.random() * (size*size));
-            console.log(curLoc)
-
-            // 텍스트 출력
-            tds[curLoc].innerHTML = "안녕^^";
-            // 이벤트 handler 등록
-            tds[curLoc].onclick = randomLocText;
-        }
-
-        // Mouse Click을 시작하기
-        function startMouseClick() {
-
-            // 입력된 테이블 크기 가져오기. 입력된 값이 없으면 placeholder 값 사용
-            const inNode = document.getElementById("number");
-            if (inNode.value == "") {
-                size = inNode.placeholder;
-            }
-            else {
-                size = inNode.value;
-            }
-            console.log(size);
-
-            // table을 생성할 node 가져오기
-            const tableArea = document.getElementById("table");
-
-            // <td></td>를 size만큼 반복하여 <tr>...</tr>을 만들고, <tr>...</tr>를 size만큼 반복하여 테이블 html 생성
-            let tableHTML = '<table class="w-auto">\n'+('\t<tr>' + '<td></td>'.repeat(size) + '</tr>\n').repeat(size) + '</table>\n';
-            //console.log(newHTML);
-
-            // table을 생성한 node에 table HTML 추가
-            tableArea.innerHTML = tableHTML;
-
-            // random cell에 text를 출력하기 위한 변수 초기화
-            tds = document.querySelectorAll("td");
-            curLoc = 0;
-
-            // random cell 텍스트 출력하고 click event handler 등록
-            randomLocText();
-        }
-
-        window.onload = function() {
-            // 웹문서가 모든 로딩된 후 button tag를 찾아서 click 이벤트에 event handler 등록
-            const btnNode = document.querySelector("button")
-            btnNode.onclick = startMouseClick;
-        }
-
-        window.onkeydown = function(event) {
-            if (event.key == "Enter") {
-                startMouseClick();
-                curLoc = 0;
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="mouseClick.css">
+    <script src="mouseClick.js"></script>
 </head>
 <body>
     <div class="container">
-        <div class="row justify-content-center ">
-            <div class="text-center col-6">
-                <div class="row fs-4 text-left">[JS Mini Proj #2]</div>
-                <div class="row p-3">
-                    <h1>Mouse Clieck</h1>
-                </div>
-                <div class="input-group input-group-lg">
-                    <span class="input-group-text">바둑판의 크기 (N x N)</span>
-                    <input id="number" type="number" placeholder=10 class="form-control">
-                    <button class="btn btn-outline-secondary" type="button">시작</button>
-                </div>
-                </div>
+        <div class="header">[JS Mini Proj #2]</div>
+        <div class="mouseclick-container">
+            <h1>Mouse Click</h1>
+            <div class="inputArea">
+                <label for="numberInput">열의 갯수 (N x N)</label>
+                <input id="numberInput" type="number" placeholder=10 class="form-control">
+                <button id="startBtn">시작</button>
             </div>
-            <div id="table" class="row justify-content-center m-5">
+            <div class="tableArea">
+                
             </div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-    crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-    crossorigin="anonymous"></script>
 </body>
 </html>
