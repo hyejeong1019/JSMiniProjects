@@ -12,7 +12,7 @@ window.onload = function () {
         console.log(size);
 
         const tableArea = document.querySelector(".tableArea");
-        const cellHTML = '<table class="w-auto">\n'
+        const cellHTML = '<table>\n'
             + ('\t<tr>' + '<td></td>'.repeat(size) + '</tr>').repeat(size)
             + '</table>';
         tableArea.innerHTML = cellHTML;

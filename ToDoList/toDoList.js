@@ -1,4 +1,12 @@
 window.onload = function() {
+    const savedTodoList = JSON.parse(localStorage.getItem('todolist'));
+    if (savedTodoList) {
+        for (let i = 0; i < savedTodoList.length; i++) {
+            console.log(savedTodoList[i]);
+            addTodoList(savedTodoList[i]);
+        }
+    }
+
     const todoInput = document.querySelector("#todoInput");
     const addBtn = document.querySelector("#addBtn");
     addBtn.addEventListener("click", function() {
@@ -6,8 +14,28 @@ window.onload = function() {
     });
 }
 
-function addTodoList() {
-    console.log(todoInput.value);
+function saveItems() { // 로컬에 데이터 저장하기
+
+	const saveItems = []; // 빈 배열 할당
+    const listArea = document.querySelector(".listArea");
+	for (let node of listArea.children) {
+        textNode = node.querySelector('span');
+	    const todoObj = {
+	        todo: textNode.textContent,
+	        check: textNode.classList.contains('check')
+	    };
+	    saveItems.push(todoObj);
+	}
+	console.log(JSON.stringify(saveItems));
+	
+	localStorage.setItem('todolist', JSON.stringify(saveItems));
+}
+
+function addTodoList(savedTodo) {
+    if (savedTodo) {
+        console.log(savedTodo)
+    } else
+        console.log(todoInput.value);
 
     const listArea = document.querySelector(".listArea");
 
@@ -20,14 +48,21 @@ function addTodoList() {
     liNode.appendChild(todoText);
     liNode.appendChild(delBtn);
     listArea.appendChild(liNode);
+    if (savedTodo) {
+        todoText.innerText = savedTodo.todo;
+        if (savedTodo.check)
+            todoText.classList.add("check");
+    } else {
+        todoText.innerText = todoInput.value;
+        todoInput.value = "";
+    }
 
-    todoText.innerText = todoInput.value;
-    todoInput.value = "";
     delBtn.innerText = "X"
 
     checkBtn.classList.add("checkBtn");
     todoText.classList.add("todoText");
     delBtn.classList.add("delBtn");
+    saveItems();
 
     checkBtn.addEventListener("click", function() {
         if (checkBtn.innerHTML == "") {
@@ -37,10 +72,12 @@ function addTodoList() {
             checkBtn.innerHTML = "";
         }
         todoText.classList.toggle("check");
+        saveItems();
     })
 
     delBtn.addEventListener("click", function() {
         liNode.remove();
+        saveItems();
     })
 
     console.log(listArea.lastChild);

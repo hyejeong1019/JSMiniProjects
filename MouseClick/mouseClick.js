@@ -21,7 +21,7 @@ window.onload = function startMouseClick() {
         const tableArea = document.querySelector(".tableArea")
     
         // <td></td>를 size만큼 반복하여 <tr>...</tr>을 만들고, <tr>...</tr>를 size만큼 반복하여 테이블 html 생성
-        let tableHTML = '<table class="w-auto">\n'+('\t<tr>' + '<td></td>'.repeat(size) + '</tr>\n').repeat(size) + '</table>\n';
+        let tableHTML = '<table>\n'+('\t<tr>' + '<td></td>'.repeat(size) + '</tr>\n').repeat(size) + '</table>\n';
         //console.log(newHTML);
     
         // table을 생성한 node에 table HTML 추가
